@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package mealey.api.users.v1;
+
+service UsersService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResult);
+}
+
+message CreateUserRequest {
+
+}
+
+message CreateUserResult {
+
+}
