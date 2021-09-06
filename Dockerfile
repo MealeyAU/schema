@@ -5,6 +5,10 @@ RUN apt-get update \
     apt-get install --no-install-recommends --assume-yes \
       protobuf-compiler
 
+RUN curl -sSL https://github.com/grpc/grpc-web/releases/download/1.2.1/\
+protoc-gen-grpc-web-1.2.1-linux-x86_64 -o /usr/local/bin/protoc-gen-grpc-web && \
+  chmod +x /usr/local/bin/protoc-gen-grpc-web
+
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
 

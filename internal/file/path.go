@@ -7,7 +7,7 @@ type Path string
 // Extension returns the file extension of a given path
 func (fp Path) Extension() string {
 	parts := strings.Split(string(fp), ".")
-	return parts[len(parts) - 1]
+	return parts[len(parts)-1]
 }
 
 // Parent returns the parent of the given path
@@ -22,5 +22,3 @@ func (fp Path) Parent() Path {
 		return Path(strings.Join(pathComponents[0:componentLen-1], "/"))
 	}
 }
-
-

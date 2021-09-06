@@ -13,7 +13,7 @@ import (
 )
 
 type execErr struct {
-	base error
+	base   error
 	detail string
 }
 
@@ -50,7 +50,10 @@ func main() {
 		}
 	}
 	if cfg.WebOutput {
-
+		err = generateWebBindings("./output", paths)
+		if err != nil {
+			log.Fatalf("failed to generate js bindings: %v", err)
+		}
 	}
 }
 
@@ -58,7 +61,7 @@ func createCommand(name string, args ...string) *exec.Cmd {
 	cmd := exec.Command(
 		"bash",
 		"-c",
-		name + " " + strings.Join(args, " "))
+		name+" "+strings.Join(args, " "))
 
 	fmt.Println(fmt.Sprintf("%v %v", name, strings.Join(args, " ")))
 	return cmd
@@ -107,6 +110,13 @@ func cleanDirectory(dest string) error {
 	return nil
 }
 
+func generateProtoCommand(file file.Path, opts ...string) *exec.Cmd {
+	args := append([]string{"-Iproto", "-Ithird_party"}, opts...)
+	args = append(args, fmt.Sprintf("./%s/*.proto", file))
+
+	return createCommand("protoc", args...)
+}
+
 func generateGoBindings(dest string, paths []file.Path) error {
 	outputDir := fmt.Sprintf("%s/schema-go", dest)
 	err := createOutput(outputDir)
@@ -114,18 +124,35 @@ func generateGoBindings(dest string, paths []file.Path) error {
 		return fmt.Errorf("failed to create output dir: %v", err)
 	}
 	for _, path := range paths {
-		protoc := createCommand("protoc",
-			"-Iproto",
-			"-Ithird_party",
+		protoc := generateProtoCommand(path,
 			fmt.Sprintf("--go_out=%s", outputDir),
 			"--go_opt=paths=source_relative",
 			fmt.Sprintf("--go-grpc_out=%s", outputDir),
-			fmt.Sprintf("--go-grpc_opt=paths=source_relative"),
-			fmt.Sprintf("./%s/*.proto", path))
+			fmt.Sprintf("--go-grpc_opt=paths=source_relative"))
 
 		output, err := protoc.CombinedOutput()
 		if err != nil {
-			return fmt.Errorf("Error encountered running proto command: %v, %v", string(output), err)
+			return fmt.Errorf("error encountered running proto command: %v, %v", string(output), err)
+		}
+	}
+	return nil
+}
+
+func generateWebBindings(dest string, paths []file.Path) error {
+	outputDir := fmt.Sprintf("%s/schema-web", dest)
+	err := createOutput(outputDir)
+	if err != nil {
+		return fmt.Errorf("failed to create output dir: %v", err)
+	}
+	for _, path := range paths {
+		protoc := generateProtoCommand(path,
+			"--js_out=import_style=commonjs:output/schema-web",
+			"--grpc-web_out=import_style=commonjs,mode=grpcwebtext:output/schema-web",
+		)
+
+		output, err := protoc.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("error encountered running proto command: %v, %v", string(output), err)
 		}
 	}
 	return nil

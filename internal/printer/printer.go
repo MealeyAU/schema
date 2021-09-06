@@ -31,9 +31,8 @@ func (p *Printer) Separator(length int) {
 	}
 
 	str := ""
-	for i := 0; i < separatorLen * length; i++ {
+	for i := 0; i < separatorLen*length; i++ {
 		str += separatorChar
 	}
 	fmt.Println(str)
 }
-
