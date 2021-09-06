@@ -5,9 +5,12 @@ jobs:
     steps:
       - checkout
       - run: make build
-      - store_artifacts:
-          path: ./output/schema-go
-          destination: schema-go
-      - store_artifacts:
-          path: ./output/schema-web
-          destination: schema-web
+      - when:
+          condition: on_success
+          steps:
+            - store_artifacts:
+                path: ./output/schema-go
+                destination: schema-go
+            - store_artifacts:
+                path: ./output/schema-web
+                destination: schema-web
