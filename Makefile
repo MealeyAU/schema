@@ -1,3 +1,3 @@
 .PHONY: build
 build:
-	docker build -o output .
+	docker build --output output .
