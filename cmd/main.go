@@ -100,18 +100,18 @@ func generateGoBindings(dest string, paths []file.Path) *execErr {
 			fmt.Sprintf("--go-grpc_opt=paths=source_relative"),
 			fmt.Sprintf("%s/*.proto", path))
 
-		fmt.Println(fmt.Sprintf("%v", protoc))
-
 		var exErr *execErr
 		output, err := protoc.CombinedOutput()
 		if err != nil {
+			fmt.Print(string(output))
 			exErr = &execErr{
 				base: err,
 				detail: string(output),
 			}
 			return exErr
+		} else {
+			fmt.Print(output)
 		}
-
 	}
 	return nil
 }
