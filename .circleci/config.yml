@@ -6,7 +6,8 @@ jobs:
       version: 20.10.7
     steps:
       - checkout
-      - run: make build
+      - run: docker build --output output .
+      - run: docker --help
       - when:
           condition: on_success
           steps:
