@@ -26,20 +26,28 @@ func main() {
 	logger.Stringf("Outputs: %v", cfg.EnabledOutputsStrings())
 	logger.Separator(printer.SeparatorLong)
 
-	paths, err := findFiles("proto")
+	paths, err := findFiles("./proto")
 	if err != nil {
 		log.Fatalf("failed to search for files: %v", err)
 	}
 
 	fmt.Println(fmt.Sprintf("%v", paths))
 
-	err = cleanDirectory("output")
+	err = cleanDirectory("./output")
 	if err != nil {
 		log.Fatalf("failed to clean existing directory: %v", err)
 	}
 
+	err = createOutput("./output")
+	if err != nil {
+		log.Fatalf("failed to create output directory: %v", err)
+	}
+
 	if cfg.GoOutput {
-		generateGoBindings("output", paths)
+		err = generateGoBindings("./output", paths)
+		if err != nil {
+			log.Fatalf("failed to generate go bindings: %v", err)
+		}
 	}
 	if cfg.WebOutput {
 
@@ -51,6 +59,8 @@ func createCommand(name string, args ...string) *exec.Cmd {
 		"bash",
 		"-c",
 		name + " " + strings.Join(args, " "))
+
+	fmt.Println(fmt.Sprintf("%v %v", name, strings.Join(args, " ")))
 	return cmd
 }
 
@@ -79,6 +89,15 @@ func findFiles(src string) ([]file.Path, error) {
 	return paths, nil
 }
 
+func createOutput(dest string) error {
+	dir := createCommand("mkdir", dest)
+	output, err := dir.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("error encountered: %v", string(output))
+	}
+	return nil
+}
+
 func cleanDirectory(dest string) error {
 	rm := createCommand("rm", "-rf", fmt.Sprintf("%s/*", dest))
 	output, err := rm.CombinedOutput()
@@ -88,29 +107,25 @@ func cleanDirectory(dest string) error {
 	return nil
 }
 
-func generateGoBindings(dest string, paths []file.Path) *execErr {
-	outputDir := fmt.Sprintf("%s/go", dest)
+func generateGoBindings(dest string, paths []file.Path) error {
+	outputDir := fmt.Sprintf("%s/schema-go", dest)
+	err := createOutput(outputDir)
+	if err != nil {
+		return fmt.Errorf("failed to create output dir: %v", err)
+	}
 	for _, path := range paths {
 		protoc := createCommand("protoc",
 			"-Iproto",
 			"-Ithird_party",
-			fmt.Sprintf("--go_out%s", outputDir),
-			"--go_out=paths=source_relative",
+			fmt.Sprintf("--go_out=%s", outputDir),
+			"--go_opt=paths=source_relative",
 			fmt.Sprintf("--go-grpc_out=%s", outputDir),
 			fmt.Sprintf("--go-grpc_opt=paths=source_relative"),
-			fmt.Sprintf("%s/*.proto", path))
+			fmt.Sprintf("./%s/*.proto", path))
 
-		var exErr *execErr
 		output, err := protoc.CombinedOutput()
 		if err != nil {
-			fmt.Print(string(output))
-			exErr = &execErr{
-				base: err,
-				detail: string(output),
-			}
-			return exErr
-		} else {
-			fmt.Print(output)
+			return fmt.Errorf("Error encountered running proto command: %v, %v", string(output), err)
 		}
 	}
 	return nil

@@ -1,4 +1,4 @@
-FROM golang:1.17 as comile
+FROM golang:1.17 as build-stage
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
@@ -10,15 +10,14 @@ RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
 
 RUN export PATH="$PATH:$(go env GOPATH)/bin"
 
-
 COPY go.mod /app/go.mod
 COPY ./cmd /app/cmd/
 COPY ./internal /app/internal/
 COPY ./proto /app/proto/
 COPY ./third_party /app/third_party/
 
-RUN mkdir /app/output
-RUN mkdir /app/output/go
 WORKDIR /app
-RUN go run ./cmd/main.go --go
-RUN cd ./ouput && ls
+RUN go run ./cmd/main.go --all
+
+FROM scratch as export-stage
+COPY --from=build-stage /app/output /
