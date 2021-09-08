@@ -99,8 +99,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: Update package version
-        run: npm version ${{ steps.get_tag.outputs.prop }}
       - name: Stage files
         run: git add .
       - name: Commit files
@@ -108,6 +106,8 @@ jobs:
           git config --local user.email "github-actions@github.com"
           git config --local user.name "github-actions[bot]"
           git commit -m "pushed update" -a
+      - name: Update package version
+        run: npm version ${{ steps.get_tag.outputs.prop }}
       - name: Push to schema-web
         uses: ad-m/github-push-action@master
         with:
