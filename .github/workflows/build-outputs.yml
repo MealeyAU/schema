@@ -63,6 +63,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-go
+      - name: Commit files
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "pushed update" -a
       - name: Push to schema-go
         uses: ad-m/github-push-action@master
         with:
@@ -84,8 +89,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-web
-      - name: Debug LS
-        run: ls
+      - name: Commit files
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "pushed update" -a
       - name: Push to schema-web
         uses: ad-m/github-push-action@master
         with:
