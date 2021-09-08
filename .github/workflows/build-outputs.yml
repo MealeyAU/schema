@@ -12,19 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build -o ./output .
+        run: docker build -o ${{ github.workspace }}/output .
       - name: dbg
-        run: ls
+        run: ls ${{ github.workspace }}
       - name: Save go outputs
         uses: actions/upload-artifact@v2
         with:
           name: schema-go
-          path: ./output/schema-go
+          path: ${{ github.workspace }}/output/schema-go
       - name: Save web outputs
         uses: actions/upload-artifact@v2
         with:
           name: schema-web
-          path: ./output/schema-web
+          path: ${{ github.workspace }}/output/schema-web
   push_go:
     runs-on: ubuntu-latest
     needs: [build]
