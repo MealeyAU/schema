@@ -29,12 +29,15 @@ jobs:
           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
       - name: Make go manifest
-        run: echo "{ \"tag\": \"${{ steps.tag_version.outputs.new_tag }}\", \"release_name\": \"Release ${{ steps.tag_version.outputs.new_tag }}\", \"changelog\": \"${{ steps.tag_version.outputs.changelog }}\"}" > ${{ github.workspace }}/output/schema-go/manifest.json
+        run: echo "{\"tag\":\"${{ steps.tag_version.outputs.new_tag }}\",\"release_name\":\"Release ${{ steps.tag_version.outputs.new_tag }}\", \"changelog\":\"${{ steps.tag_version.outputs.changelog }}\"}" > ${{ github.workspace }}/output/schema-go/manifest.json
       - name: Save go outputs
         uses: actions/upload-artifact@v2
         with:
           name: schema-go
           path: ${{ github.workspace }}/output
+      - name: Make go manifest
+        run: echo "{\"tag\":\"${{ steps.tag_version.outputs.new_tag }}\",\"release_name\":\"Release ${{ steps.tag_version.outputs.new_tag }}\", \"changelog\":\"${{ steps.tag_version.outputs.changelog }}\"}" > ${{ github.workspace }}/output/schema-web/manifest.json
+
       - name: Save web outputs
         uses: actions/upload-artifact@v2
         with:
