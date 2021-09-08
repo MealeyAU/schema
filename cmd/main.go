@@ -147,7 +147,7 @@ func generateWebBindings(dest string, paths []file.Path) error {
 	for _, path := range paths {
 		protoc := generateProtoCommand(path,
 			"--js_out=import_style=commonjs:output/schema-web",
-			"--grpc-web_out=import_style=commonjs,mode=grpcwebtext:output/schema-web",
+			"--grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:output/schema-web",
 		)
 
 		output, err := protoc.CombinedOutput()
