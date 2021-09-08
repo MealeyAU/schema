@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package mealey.api.authorization.v1;
+option go_package = "github.com/mealey/schema-go/api/authorization/v1";
+
+service AuthorizationService {
+  rpc GetAccessToken(GetAccessTokenRequest) returns (GetAccessTokenResult);
+  rpc RefreshAccessToken(RefreshAccessTokenRequest) returns (RefreshAccessTokenResult);
+}
+
+message GetAccessTokenRequest {
+
+}
+
+message GetAccessTokenResult {
+
+}
+
+message RefreshAccessTokenRequest {
+
+}
+
+message RefreshAccessTokenResult {
+
+}
