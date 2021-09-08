@@ -65,6 +65,8 @@ jobs:
           name: schema-go
       - name: dbg
         run: ls
+      - name: dbg schema-go
+        run: cd schema-go && ls
       - name: Stage files
         run: |
           git add .
