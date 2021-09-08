@@ -91,6 +91,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-web
+      - id: get_tag
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'manifest.json'
+          prop_path: 'tag'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Update package version
+        run: npm version ${{ steps.get_tag.outputs.prop }}
       - name: Stage files
         run: git add .
       - name: Commit files
