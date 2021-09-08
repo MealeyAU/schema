@@ -52,6 +52,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-web
+      - name: Debug LS
+        run: ls
       - name: Push to schema-web
         uses: cpina/github-action-push-to-another-repository@v1.3
         env:
