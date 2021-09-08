@@ -59,16 +59,11 @@ jobs:
         with:
           name: schema-go
       - name: Push to schema-go
-        uses: cpina/github-action-push-to-another-repository@v1.3
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        uses: ad-m/github-push-action
         with:
-          source-directory: 'schema-go'
-          destination-github-username: 'MealeyAU'
-          destination-repository-name: 'schema-go'
-          user-email: rorydeanphillips@gmail.com
-          commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-          target-branch: main
+          github_token: ${{ secrets.API_TOKEN_GITHUB }}
+          branch: main
+          repository: MealeyAU/schema-go
 
   # Push the schema-web bindings
   push_web:
@@ -82,13 +77,8 @@ jobs:
       - name: Debug LS
         run: ls
       - name: Push to schema-web
-        uses: cpina/github-action-push-to-another-repository@v1.3
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        uses: ad-m/github-push-action
         with:
-          source-directory: 'schema-web'
-          destination-github-username: 'MealeyAU'
-          destination-repository-name: 'schema-web'
-          user-email: rorydeanphillips@gmail.com
-          commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-          target-branch: main
+          github_token: ${{ secrets.API_TOKEN_GITHUB }}
+          branch: main
+          repository: MealeyAU/schema-web
