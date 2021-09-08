@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         run: docker build . --output output
+      - name: dbg
+        run: ls
       - name: Save go outputs
         uses: actions/upload-artifact@v2
         with:
