@@ -19,12 +19,12 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: schema-go
-          path: ${{ github.workspace }}/output/schema-go
+          path: ${{ github.workspace }}/output
       - name: Save web outputs
         uses: actions/upload-artifact@v2
         with:
           name: schema-web
-          path: ${{ github.workspace }}/output/schema-web
+          path: ${{ github.workspace }}/output
   push_go:
     runs-on: ubuntu-latest
     needs: [build]
