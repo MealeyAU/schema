@@ -59,7 +59,7 @@ jobs:
         with:
           name: schema-go
       - name: Push to schema-go
-        uses: ad-m/github-push-action
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.API_TOKEN_GITHUB }}
           branch: main
@@ -77,7 +77,7 @@ jobs:
       - name: Debug LS
         run: ls
       - name: Push to schema-web
-        uses: ad-m/github-push-action
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.API_TOKEN_GITHUB }}
           branch: main
