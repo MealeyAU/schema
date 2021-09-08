@@ -1,8 +1,9 @@
 syntax = "proto3";
 
 package mealey.api.users.v1;
-
 option go_package = "github.com/mealey/schema-go/api/users/v1";
+
+import "api/users/v1/user.proto";
 
 service UsersService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResult);
@@ -13,5 +14,5 @@ message CreateUserRequest {
 }
 
 message CreateUserResult {
-
+  User user = 1;
 }
