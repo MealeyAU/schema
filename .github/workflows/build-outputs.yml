@@ -58,7 +58,7 @@ jobs:
         with:
           ref: main
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          repository: git@github.com:MealeyAU/schema-go.git
+          repository: MealeyAU/schema-go
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
@@ -79,7 +79,7 @@ jobs:
         with:
           ref: main
           token: ${{ secrets.API_TOKEN_GITHUB }}
-          repository: git@github.com:MealeyAU/schema-web.git
+          repository: MealeyAU/schema-web
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
