@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: schema-go
-          path: ${{ github.workspace }}/output
+          path: ${{ github.workspace }}/output/schema-go
 
       # Manually create a json manifest for schema-web to tag and release with (uses the release generated above)
       - name: Make web manifest
@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: schema-web
-          path: ${{ github.workspace }}/output
+          path: ${{ github.workspace }}/output/schema-web
 
   # Push the schema-go bindings
   push_go:
