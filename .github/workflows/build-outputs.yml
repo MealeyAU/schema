@@ -63,13 +63,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-go
-      - name: dbg
-        run: ls
-      - name: dbg schema-go
-        run: cd schema-go && ls
+          path: schema-go
+      - name: Change dir
+        run: cd schema-go
       - name: Stage files
-        run: |
-          git add .
+        run: git add .
       - name: Commit files
         run: |
           git config --local user.email "github-actions@github.com"
@@ -96,6 +94,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-web
+          path: schema-web
+      - name: Change dir
+        run: cd schema-web
+      - name: Stage files
+        run: git add .
       - name: Commit files
         run: |
           git config --local user.email "github-actions@github.com"
