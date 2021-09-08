@@ -13,6 +13,19 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         run: docker build . --output output
+      - name: Save go outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: schema-go
+          path: output/schema-go
+      - name: Save web outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: schema-web
+          path: output/schema-web
+  push_go:
+    runs-on: ubuntu-latest
+    steps:
       - name: Push to schema-go
         uses: cpina/github-action-push-to-another-repository@v1.3
         env:
@@ -24,6 +37,9 @@ jobs:
           user-email: rorydeanphillips@gmail.com
           commit-message: See ORIGIN_COMMIT from $GITHUB_REF
           target-branch: main
+  push_web:
+    runs-on: ubuntu-latest
+    steps:
       - name: Push to schema-web
         uses: cpina/github-action-push-to-another-repository@v1.3
         env:
