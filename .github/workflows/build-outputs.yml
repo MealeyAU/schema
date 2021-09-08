@@ -63,7 +63,7 @@ jobs:
         with:
           github_token: ${{ secrets.API_TOKEN_GITHUB }}
           branch: main
-          repository: MealeyAU/schema-go
+          repository: git@github.com:MealeyAU/schema-go.git
 
   # Push the schema-web bindings
   push_web:
@@ -81,4 +81,4 @@ jobs:
         with:
           github_token: ${{ secrets.API_TOKEN_GITHUB }}
           branch: main
-          repository: MealeyAU/schema-web
+          repository: git@github.com:MealeyAU/schema-go.git
