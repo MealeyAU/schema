@@ -63,9 +63,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-go
-          path: schema-go
-      - name: Change dir
-        run: cd schema-go
       - name: Stage files
         run: git add .
       - name: Commit files
@@ -94,9 +91,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: schema-web
-          path: schema-web
-      - name: Change dir
-        run: cd schema-web
       - name: Stage files
         run: git add .
       - name: Commit files
