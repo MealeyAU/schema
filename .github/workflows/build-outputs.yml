@@ -56,6 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
           repository: git@github.com:MealeyAU/schema-go.git
       - name: Download a single artifact
         uses: actions/download-artifact@v2
@@ -75,6 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
           repository: git@github.com:MealeyAU/schema-web.git
       - name: Download a single artifact
         uses: actions/download-artifact@v2
