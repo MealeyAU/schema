@@ -59,6 +59,9 @@ jobs:
           ref: main
           token: ${{ secrets.API_TOKEN_GITHUB }}
           repository: MealeyAU/schema-go
+      - run: rm -rf api/
+      - run: rm -rf common/
+      - run: rm -rf events/
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
@@ -102,9 +105,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: rm -rf api/
-      - run: rm -rf common/
-      - run: rm -rf events/
       - name: Stage files
         run: git add .
       - name: Commit files
