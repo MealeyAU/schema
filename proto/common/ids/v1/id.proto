@@ -7,8 +7,10 @@ import "google/protobuf/timestamp.proto";
 
 // Id represents a single unique identifier within the system
 message Id {
+  string simplified = 1;
   // Timestamp that this id was generated at
-  google.protobuf.Timestamp timestamp = 1;
+  google.protobuf.Timestamp timestamp = 2;
   // Generated entity ID
-  string entity_id = 2;
+  string entity_id = 3;
+
 }
