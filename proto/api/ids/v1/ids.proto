@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package mealey.api.ids.v1;
+package mealeyau.api.ids.v1;
 
 import "common/ids/v1/id.proto";
-option go_package = "github.com/mealey/schema-go/api/ids/v1";
+option go_package = "github.com/mealeyau/schema-go/api/ids/v1";
 
 // IdService allows for new ids to be generated, verified and maintained
 service IdService {

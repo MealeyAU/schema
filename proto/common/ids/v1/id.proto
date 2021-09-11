@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package mealey.common.ids.v1;
-option go_package = "github.com/mealey/schema-go/common/ids/v1";
+package mealeyau.common.ids.v1;
+option go_package = "github.com/mealeyau/schema-go/common/ids/v1";
 
 import "google/protobuf/timestamp.proto";
 
