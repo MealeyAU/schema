@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package mealey.api.ids.v1;
+
+import "common/ids/v1/id.proto";
+option go_package = "github.com/mealey/schema-go/api/ids/v1";
+
+// IdService allows for new ids to be generated, verified and maintained
+service IdService {
+  // Generate will create and store a new id within the system
+  rpc Generate(GenerateRequest) returns (GenerateResult);
+  // Verify will return the status of a given id
+  rpc Verify(VerifyRequest) returns (VerifyResult);
+  // Delete will mark the id as deleted, typically signifying the resource associated
+  // being deleted
+  rpc Delete(DeleteRequest) returns (DeleteResult);
+}
+
+// Parameters to be supplied to `Generate`
+message GenerateRequest {
+}
+
+// Result of the execution of `Generate`
+message GenerateResult {
+  // The newly created id
+  common.ids.v1.Id id = 1;
+}
+
+// Parameters to be supplied to `Verify`
+message VerifyRequest {
+  // The id to verify
+  common.ids.v1.Id id = 1;
+}
+
+// Result of the execution of `Verify`
+message VerifyResult {
+  // The status of the supplied id
+  VerifyStatus status = 1;
+}
+
+// Parameters to be supplied to `Delete`
+message DeleteRequest {
+  // The id to be marked as deleted
+  common.ids.v1.Id id = 1;
+}
+
+// Result of the execution of `Delete`
+message DeleteResult {
+}
+
+// Possible status of a verify
+enum VerifyStatus {
+  // Unknown verification  status
+  Unknown = 0;
+  // Invalid. The id has never existed
+  Invalid = 1;
+  // Active. The id exists and the resource associated with it is not deleted
+  Active = 2;
+  // Deleted. The id exists, but the resource associated with it has been deleted
+  Deleted = 3;
+}

@@ -1,4 +1,4 @@
-FROM golang:1.17 as build-stage
+FROM golang:1.17.1 as build-stage
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive \

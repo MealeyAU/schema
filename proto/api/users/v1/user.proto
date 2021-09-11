@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package mealey.api.users.v1;
-option go_package = "github.com/mealey/schema-go/api/users/v1";
-
-message User {
-  string id = 1;
-}
