@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package mealeyau.api.media.v1;
+
+option go_package = "github.com/MealeyAU/schema-go/api/media/v1";
+
+// MediaService
+service MediaService {
+  rpc GetUploadURL(GetUploadURLRequest) returns (GetUploadURLResult);
+  rpc GetDownloadURL(GetDownloadURLRequest) returns (GetDownloadURLResult);
+}
+
+message GetUploadURLRequest {
+  enum MediaType {
+    UNKNOWN = 0;
+    Avatar = 1;
+    Image = 2;
+    Video = 3;
+    Audio = 4;
+  }
+
+  // The type of media to upload
+  MediaType media_type = 1;
+}
+
+message GetUploadURLResult {
+  string id = 1;
+  string url = 2;
+}
+
+message GetDownloadURLRequest {
+  string id = 1;
+}
+
+message GetDownloadURLResult {
+  string url = 1;
+}
