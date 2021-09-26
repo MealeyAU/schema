@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package mealeyau.common.users.v1;
+option go_package = "github.com/MealeyAU/schema-go/common/users/v1";
+
+import "google/protobuf/timestamp.proto";
+
+// A single user within the system
+message User {
+  // The simplified id for this user
+  string id = 1;
+  // Given name of the user
+  string given_name = 2;
+  // Family name of the user
+  string family_name = 3;
+  // ID of the avatar to show for this user
+  string avatar_id = 4;
+
+  // Providing field growth opportunities
+  // The timestamp this user was created at
+  google.protobuf.Timestamp created_at = 30;
+  // The timestamp this user was last modified at
+  google.protobuf.Timestamp modified_at = 31;
+}

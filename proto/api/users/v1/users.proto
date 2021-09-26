@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package mealeyau.api.users.v1;
+
+import "common/users/v1/user.proto";
+option go_package = "github.com/MealeyAU/schema-go/api/users/v1";
+
+// UsersService
+service UsersService {
+  // CreateUser will make a new user within the system
+  rpc Create(CreateRequest) returns (CreateResult);
+  // GetByID will return a user by id if they exist
+  rpc GetByID(GetByIDRequest) returns (GetResult);
+  // UpdateNames will change the family and given names for a user
+  rpc UpdateNames(UpdateNamesRequest) returns (UpdateNamesResult);
+  // UpdateAvatar will change the avatar for a user
+  rpc UpdateAvatar(UpdateAvatarRequest) returns (UpdateAvatarResult);
+}
+
+// Parameters to be supplied to `Create`
+message CreateRequest {
+  string given_name = 1;
+  string family_name = 2;
+}
+message CreateResult {
+  mealeyau.common.users.v1.User user = 1;
+}
+
+message GetByIDRequest {
+  string id = 1;
+}
+message GetResult {
+  mealeyau.common.users.v1.User user = 1;
+}
+
+message UpdateNamesRequest {
+  string given_name = 1;
+  string family_name = 2;
+}
+
+message UpdateNamesResult {
+}
+
+message UpdateAvatarRequest {
+  string avatar_id = 1;
+}
+
+message UpdateAvatarResult {
+}
