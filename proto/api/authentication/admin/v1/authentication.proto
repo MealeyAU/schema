@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package mealeyau.api.authentication.admin.v1;
+
+option go_package = "github.com/MealeyAU/schema-go/api/authentication/admin/v1";
+
+service AdminAuthenticationService {
+  rpc AddPasswordCredentials(AddPasswordCredentialsRequest) returns (AddPasswordCredentialsResult);
+}
+
+message AddPasswordCredentialsRequest {
+  string user_id = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message AddPasswordCredentialsResult {
+}

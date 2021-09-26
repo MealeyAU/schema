@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package mealeyau.api.registration.v1;
+
+import "common/users/v1/user.proto";
+
+option go_package = "github.com/MealeyAU/schema-go/api/registration/v1";
+
+service RegistrationService {
+  rpc Register(RegisterRequest) returns (RegisterResult);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string given_name = 3;
+  string family_name = 4;
+}
+
+message RegisterResult {
+  string access_token = 1;
+  string refresh_token = 2;
+  mealeyau.common.users.v1.User user = 3;
+}

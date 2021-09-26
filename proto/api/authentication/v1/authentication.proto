@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package mealeyau.api.authentication.v1;
+
+option go_package = "github.com/MealeyAU/schema-go/api/authentication/v1";
+
+// AuthenticationService provides publically accessible authentication capabilities
+service AuthenticationService {
+  rpc AuthenticatePassword(AuthenticatePasswordRequest) returns (TokenResult);
+  rpc Refresh(RefreshRequest) returns (TokenResult);
+}
+
+message AuthenticatePasswordRequest {
+  // email to sign in to
+  string email = 1;
+  // password to sign in with
+  string password = 2;
+}
+
+message RefreshRequest {
+  // refresh_token previously provided to authenticate the user
+  string refresh_token = 1;
+}
+
+message TokenResult {
+  // access_token to be used to authenticate this user
+  string access_token = 1;
+  // refresh_token to be sent on the next refresh request
+  string refresh_token = 2;
+}
